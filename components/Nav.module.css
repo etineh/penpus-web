@@ -1,0 +1,50 @@
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--nav-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--rule);
+}
+.inner {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  height: 64px;
+}
+.logo {
+  border-radius: 8px;
+  display: block;
+}
+.wordmark {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-family: ui-rounded, "Arial Rounded MT Bold", "Trebuchet MS", system-ui, sans-serif;
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--ink);
+  text-decoration: none;
+  letter-spacing: -0.01em;
+}
+.links {
+  display: flex;
+  gap: 22px;
+  margin-left: auto;
+  align-items: center;
+}
+.links a:not(.btn) {
+  color: var(--ink-soft);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+.links a:not(.btn):hover {
+  color: var(--pen);
+}
+@media (max-width: 640px) {
+  .links a:not(.btn) {
+    display: none;
+  }
+}

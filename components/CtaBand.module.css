@@ -1,0 +1,17 @@
+.band {
+  background: var(--ink); color: var(--paper);
+  border-radius: 28px; padding: 56px 40px; text-align: center;
+  position: relative; overflow: hidden;
+}
+:global(:root[data-theme="dark"]) .band {
+  background: var(--card); border: 1px solid var(--rule); color: var(--ink);
+}
+@media (prefers-color-scheme: dark) {
+  :global(:root:not([data-theme="light"])) .band {
+    background: var(--card); border: 1px solid var(--rule); color: var(--ink);
+  }
+}
+.band h2 { font-size: clamp(1.8rem, 3.6vw, 2.6rem); font-weight: 800; }
+.band p { opacity: 0.78; margin: 12px auto 28px; max-width: 32em; }
+.center { display: flex; justify-content: center; }
+.center :global(.cta-row) { justify-content: center; }

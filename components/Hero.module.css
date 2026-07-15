@@ -1,0 +1,86 @@
+.hero { position: relative; overflow: hidden; }
+
+/* Exercise-book ruling + red margin line, faded out toward the bottom. */
+.ruling {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image: repeating-linear-gradient(transparent 0 33px, var(--rule) 33px 34px);
+  -webkit-mask-image: linear-gradient(#000 55%, transparent 96%);
+  mask-image: linear-gradient(#000 55%, transparent 96%);
+}
+.margin {
+  position: absolute; top: 0; bottom: 0; left: clamp(14px, 5vw, 64px); width: 2px;
+  background: var(--margin); opacity: 0.55; pointer-events: none;
+  -webkit-mask-image: linear-gradient(#000 60%, transparent 97%);
+  mask-image: linear-gradient(#000 60%, transparent 97%);
+}
+
+.grid {
+  position: relative;
+  display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 48px;
+  align-items: center; padding: 72px 0 88px;
+}
+@media (max-width: 880px) {
+  .grid { grid-template-columns: 1fr; padding: 48px 0 64px; }
+}
+
+.title { font-size: clamp(2.5rem, 5.6vw, 4.1rem); font-weight: 800; }
+.hl { position: relative; white-space: nowrap; color: var(--hilite-ink); }
+.hl::before {
+  content: ""; position: absolute; inset: -2px -8px -4px -6px; z-index: -1;
+  background: var(--hilite); border-radius: 6px; transform: rotate(-1.4deg) skewX(-6deg);
+}
+.lede { font-size: 1.15rem; color: var(--ink-soft); max-width: 34em; margin: 20px 0 30px; }
+
+.scribble {
+  font-family: "Snell Roundhand", "Savoye LET", "Segoe Script", "Bradley Hand", cursive;
+  color: var(--margin); font-size: 1.15rem; transform: rotate(-3deg);
+  display: inline-block; margin-top: 26px;
+}
+
+/* Phone --------------------------------------------------------------------- */
+.phoneWrap { display: flex; justify-content: center; }
+.phone {
+  width: min(310px, 86vw); border-radius: 42px; background: var(--card);
+  border: 1px solid var(--rule); box-shadow: var(--shadow); padding: 12px; position: relative;
+}
+.screen { border-radius: 32px; overflow: hidden; background: var(--paper); border: 1px solid var(--rule); }
+.status { display: flex; justify-content: space-between; font-size: 0.68rem; color: var(--ink-soft); padding: 10px 18px 4px; }
+.appbar { display: flex; align-items: center; gap: 10px; padding: 8px 14px 10px; border-bottom: 1px solid var(--rule); background: var(--card); }
+.avatar {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--pen), #7c4dcc);
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-weight: 800; font-size: 0.8rem; flex: none;
+}
+.gname { font-weight: 800; font-size: 0.86rem; line-height: 1.2; }
+.gmeta { font-size: 0.66rem; color: var(--ink-soft); }
+
+.chat { padding: 12px 12px 6px; display: flex; flex-direction: column; gap: 8px; min-height: 300px; }
+.bubble { max-width: 82%; padding: 8px 12px; border-radius: 14px; font-size: 0.8rem; line-height: 1.45; box-shadow: 0 1px 2px rgba(18, 43, 84, 0.08); }
+.in { background: var(--card); border: 1px solid var(--rule); border-top-left-radius: 4px; align-self: flex-start; }
+.out { background: var(--pen-tint); border-top-right-radius: 4px; align-self: flex-end; }
+.sender { display: flex; align-items: center; gap: 4px; font-size: 0.68rem; font-weight: 700; color: var(--good); margin-bottom: 2px; }
+.meta { display: flex; justify-content: flex-end; gap: 4px; font-size: 0.6rem; color: var(--ink-soft); margin-top: 3px; }
+.ticks { color: var(--pen); font-weight: 700; letter-spacing: -0.15em; }
+.quote { border-left: 3px solid var(--pen); background: rgba(21, 101, 192, 0.08); border-radius: 6px; padding: 4px 8px; font-size: 0.68rem; color: var(--ink-soft); margin-bottom: 5px; }
+.quote b { color: var(--pen); display: block; font-size: 0.64rem; }
+.sticker { align-self: flex-end; font-size: 64px; line-height: 1; filter: drop-shadow(0 4px 8px rgba(18, 43, 84, 0.2)); }
+.typing { display: flex; gap: 4px; align-items: center; align-self: flex-start; background: var(--card); border: 1px solid var(--rule); border-radius: 14px; border-top-left-radius: 4px; padding: 10px 14px; }
+.typing i { width: 6px; height: 6px; border-radius: 50%; background: var(--ink-soft); display: block; }
+
+.input { display: flex; align-items: center; gap: 8px; margin: 6px 10px 12px; background: var(--card); border: 1px solid var(--rule); border-radius: 999px; padding: 8px 14px; font-size: 0.75rem; color: var(--ink-soft); }
+.icons { margin-left: auto; display: flex; gap: 8px; color: var(--pen); font-size: 0.85rem; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .chat > * { opacity: 0; transform: translateY(10px); animation: pop 0.45s ease forwards; }
+  .chat > :nth-child(1) { animation-delay: 0.35s; }
+  .chat > :nth-child(2) { animation-delay: 0.75s; }
+  .chat > :nth-child(3) { animation-delay: 1.15s; }
+  .chat > :nth-child(4) { animation-delay: 1.6s; }
+  .chat > :nth-child(5) { animation-delay: 2.1s; }
+  @keyframes pop { to { opacity: 1; transform: none; } }
+  .typing i { animation: blink 1.2s infinite; }
+  .typing i:nth-child(2) { animation-delay: 0.2s; }
+  .typing i:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes blink { 0%, 60%, 100% { opacity: 0.25; } 30% { opacity: 1; } }
+}

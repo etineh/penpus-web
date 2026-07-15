@@ -1,0 +1,8 @@
+.grid { display: flex; flex-wrap: wrap; gap: 10px; }
+.school {
+  background: var(--chip); border: 1px solid var(--rule); border-radius: 999px;
+  padding: 8px 18px; font-weight: 700; font-size: 0.9rem; color: var(--ink);
+  text-decoration: none; transition: transform 0.15s ease, border-color 0.15s ease;
+}
+a.school:hover { transform: translateY(-1px); border-color: var(--pen); color: var(--pen); }
+.more { background: transparent; border-style: dashed; color: var(--pen); }
