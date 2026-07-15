@@ -17,10 +17,10 @@
 .grid {
   position: relative;
   display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 48px;
-  align-items: center; padding: 72px 0 88px;
+  align-items: center; padding-top: 72px; padding-bottom: 88px;
 }
 @media (max-width: 880px) {
-  .grid { grid-template-columns: 1fr; padding: 48px 0 64px; }
+  .grid { grid-template-columns: 1fr; padding-top: 48px; padding-bottom: 64px; }
 }
 
 .title { font-size: clamp(2.5rem, 5.6vw, 4.1rem); font-weight: 800; }
