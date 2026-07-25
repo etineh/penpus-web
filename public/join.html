@@ -64,10 +64,8 @@
     .logo {
       width: 72px; height: 72px;
       border-radius: 20px;
-      background: var(--blue);
-      color: #fff;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 34px; font-weight: 700;
+      display: block;
+      object-fit: cover;
       margin: 0 auto 18px;
     }
     h1 { font-size: 21px; margin: 0 0 8px; }
@@ -106,9 +104,9 @@
 </head>
 <body>
   <div class="card">
-    <div class="logo">P</div>
-    <h1>You're invited to a group on Penpus</h1>
-    <p id="sub">Open the link in the Penpus app to view and join the group.</p>
+    <img class="logo" src="/logo.png" alt="Penpus" />
+    <h1>You're invited to a group | community on Penpus</h1>
+    <p id="sub">Open the link in the Penpus app to view and join now.</p>
 
     <a class="btn primary" id="openApp" href="#">Open in Penpus</a>
 
@@ -128,17 +126,32 @@
     // The invite code is the last path segment: /join/<code>
     var parts = window.location.pathname.split('/').filter(Boolean);
     var code = parts.length >= 2 && parts[0] === 'join' ? parts[1] : '';
-    var appUrl = 'https://penpus.com/join/' + code;
+    var httpsUrl = 'https://penpus.com/join/' + code;
+    var playUrl =
+      'https://play.google.com/store/apps/details?id=com.allcampusapp.allcampus';
 
-    // "Open in Penpus" re-hits the same universal/app link; if the app is
-    // installed and verified, the OS opens it directly.
-    document.getElementById('openApp').setAttribute('href', appUrl);
+    var ua = navigator.userAgent || '';
+    var isAndroid = /android/i.test(ua);
+    var isIOS = /iphone|ipad|ipod/i.test(ua);
+
+    // A plain https link clicked INSIDE a browser just navigates in-browser —
+    // Android App Links only auto-open the app when tapped from another app.
+    // An intent:// URL force-routes to the installed app, with a Play Store
+    // fallback when it isn't installed. iOS keeps the https universal link.
+    var openBtn = document.getElementById('openApp');
+    if (isAndroid) {
+      openBtn.setAttribute('href',
+        'intent://penpus.com/join/' + code +
+        '#Intent;scheme=https;package=com.allcampusapp.allcampus;' +
+        'S.browser_fallback_url=' + encodeURIComponent(playUrl) + ';end');
+    } else {
+      openBtn.setAttribute('href', httpsUrl);
+    }
 
     // Show only the relevant store on mobile.
-    var ua = navigator.userAgent || '';
-    if (/android/i.test(ua)) {
+    if (isAndroid) {
       document.getElementById('appStore').style.display = 'none';
-    } else if (/iphone|ipad|ipod/i.test(ua)) {
+    } else if (isIOS) {
       document.getElementById('playStore').style.display = 'none';
     }
   </script>
