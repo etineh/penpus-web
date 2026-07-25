@@ -199,6 +199,24 @@ a {
   font-family: ui-rounded, "Arial Rounded MT Bold", "Trebuchet MS", sans-serif;
 }
 
+/* Official store badge images (App Store / Google Play PNGs). Height-locked
+   with width:auto so each keeps its native aspect ratio and neither stretches.
+   White rounded backing so the black PNGs stand out on the dark hero. */
+.store-img {
+  display: inline-flex;
+  background: #fff;
+  border-radius: 6px;
+  padding: 3px 5px;
+  box-shadow: 0 4px 14px -8px rgba(0, 0, 0, .5);
+  transition: transform .15s ease;
+}
+.store-img:hover { transform: translateY(-1px); }
+.store-img img {
+  height: 40px;
+  width: auto;
+  display: block;
+}
+
 .cta-row {
   display: flex;
   flex-wrap: wrap;

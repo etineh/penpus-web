@@ -6,8 +6,8 @@ export const site = {
     "Penpus brings your course mates, class timetable, past questions and the daily quiz into one clean chat app — from your institution community down to your level group.",
   url: "https://penpus.com",
   // Update these once the store listings are live.
-  appStoreUrl: "#",
-  playStoreUrl: "#",
+  appStoreUrl: "https://apps.apple.com/app/id6789201059",
+  playStoreUrl: "https://play.google.com/store/apps/details?id=com.allcampusapp.allcampus",
   webAppUrl: "https://app.penpus.com",
   email: "hello@penpus.com",
   supportEmail: "support@penpus.com",

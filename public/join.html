@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Join a group on Penpus</title>
+  <style>
+    :root {
+      --blue: #2563EB;
+      --bg: #ffffff;
+      --card: #f6f8fc;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: rgba(15, 23, 42, 0.08);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0b1220;
+        --card: #131c2e;
+        --text: #e8edf6;
+        --muted: #94a3b8;
+        --border: rgba(255, 255, 255, 0.08);
+      }
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .card {
+      width: 100%;
+      max-width: 420px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px 24px;
+      text-align: center;
+    }
+    .logo {
+      width: 72px; height: 72px;
+      border-radius: 20px;
+      background: var(--blue);
+      color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 34px; font-weight: 700;
+      margin: 0 auto 18px;
+    }
+    h1 { font-size: 21px; margin: 0 0 8px; }
+    p { color: var(--muted); font-size: 15px; line-height: 1.5; margin: 0 0 24px; }
+    .btn {
+      display: block; width: 100%;
+      padding: 14px 16px;
+      border-radius: 12px;
+      font-size: 15px; font-weight: 600;
+      text-decoration: none;
+      margin-bottom: 12px;
+      border: 1px solid var(--border);
+      color: var(--text);
+      background: transparent;
+    }
+    .btn.primary { background: var(--blue); color: #fff; border-color: var(--blue); }
+    .stores {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+    /* White rounded backing so the black official PNGs stand out. */
+    .stores a {
+      display: inline-flex;
+      background: #fff;
+      border-radius: 6px;
+      padding: 3px 5px;
+      box-shadow: 0 4px 14px -8px rgba(0, 0, 0, .5);
+    }
+    /* Match each badge's native aspect ratio so neither looks stretched. */
+    .stores img { height: 40px; width: auto; display: block; }
+    .foot { font-size: 12px; color: var(--muted); margin: 20px 0 0; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="logo">P</div>
+    <h1>You're invited to a group on Penpus</h1>
+    <p id="sub">Open the link in the Penpus app to view and join the group.</p>
+
+    <a class="btn primary" id="openApp" href="#">Open in Penpus</a>
+
+    <div class="stores">
+      <a id="appStore" href="https://apps.apple.com/app/id6789201059">
+        <img src="/app_store_badge.png" alt="Download on the App Store" />
+      </a>
+      <a id="playStore" href="https://play.google.com/store/apps/details?id=com.allcampusapp.allcampus">
+        <img src="/play_store_badge.png" alt="Get it on Google Play" />
+      </a>
+    </div>
+
+    <p class="foot">Penpus &middot; penpus.com</p>
+  </div>
+
+  <script>
+    // The invite code is the last path segment: /join/<code>
+    var parts = window.location.pathname.split('/').filter(Boolean);
+    var code = parts.length >= 2 && parts[0] === 'join' ? parts[1] : '';
+    var appUrl = 'https://penpus.com/join/' + code;
+
+    // "Open in Penpus" re-hits the same universal/app link; if the app is
+    // installed and verified, the OS opens it directly.
+    document.getElementById('openApp').setAttribute('href', appUrl);
+
+    // Show only the relevant store on mobile.
+    var ua = navigator.userAgent || '';
+    if (/android/i.test(ua)) {
+      document.getElementById('appStore').style.display = 'none';
+    } else if (/iphone|ipad|ipod/i.test(ua)) {
+      document.getElementById('playStore').style.display = 'none';
+    }
+  </script>
+</body>
+</html>

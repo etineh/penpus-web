@@ -5,7 +5,8 @@
       "namespace": "android_app",
       "package_name": "com.allcampusapp.allcampus",
       "sha256_cert_fingerprints": [
-        "REPLACE_WITH_YOUR_APP_SIGNING_SHA256_FINGERPRINT"
+        "65:63:39:3A:0A:62:74:EB:92:E5:87:50:98:C7:66:3E:BE:F7:21:62:3C:4A:E6:F7:19:6F:97:C4:C2:65:2D:72",
+        "0F:89:1B:23:56:C5:AD:91:BF:21:4B:A5:E3:96:FD:C5:49:08:12:1F:6B:88:DE:A1:4F:3B:EC:5E:B0:F0:4E:DA"
       ]
     }
   }

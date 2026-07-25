@@ -3,8 +3,8 @@
     "apps": [],
     "details": [
       {
-        "appID": "TEAMID.com.allcampusapp.allcampus",
-        "paths": ["/schools/*", "/chat/*", "/invite/*"]
+        "appID": "FRV5P4S34U.com.allcampusapp.allcampus",
+        "paths": ["/join/*"]
       }
     ]
   }
