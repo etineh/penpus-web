@@ -1,0 +1,16 @@
+# Render Blueprint for the Penpus marketing + deep-link site.
+# Static export of the Next app (out/) served from Render's CDN.
+services:
+  - type: web
+    name: penpus-web
+    runtime: static
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./out
+    # Group invite deep links: every /join/<code> serves the single static
+    # fallback page. type:rewrite keeps the URL as /join/<code> (HTTP 200,
+    # NOT a 30x) so the OS App Link / Universal Link can read the invite
+    # code and hand off to the Penpus app when it's installed.
+    routes:
+      - type: rewrite
+        source: /join/*
+        destination: /join.html
