@@ -6,7 +6,7 @@ export default function Features() {
       <div className="container">
         <div className="section-head reveal">
           <p className="eyebrow">Everything a semester throws at you</p>
-          <h2>One app, five jobs done properly.</h2>
+          <h2>One app, six jobs done properly.</h2>
           <p>No more juggling six group chats, a PDF folder and a photo of the timetable.</p>
         </div>
 
@@ -84,6 +84,35 @@ export default function Features() {
             <div className={`${styles.art} ${styles.row}`}>
               <span className={styles.pill}>⚡ Daily streak</span>
               <span className={`${styles.pill} ${styles.ok}`}>Best score 9/10</span>
+            </div>
+          </article>
+
+          <article className={`${styles.card} ${styles.span6} reveal`}>
+            <h3>Your personal study library</h3>
+            <p>
+              Save notes, PDFs and links into your own collections — 5 GB free. Files open
+              once and stay available offline, and starred favourites float to the top.
+            </p>
+            <div className={`${styles.art} ${styles.libWrap}`}>
+              <div className={styles.libStore}>
+                <b>Your study space</b>
+                <span className={styles.libUsed}>1.2 GB of 5 GB used</span>
+                <div className={styles.bar}><i style={{ width: "24%" }} /></div>
+              </div>
+              <div className={styles.libCols}>
+                <span className={styles.col}>
+                  <i className={`${styles.dot} ${styles.blue}`} />Mathematics<small>3</small>
+                </span>
+                <span className={styles.col}>
+                  <i className={`${styles.dot} ${styles.green}`} />Organic Chemistry<small>2</small>
+                </span>
+                <span className={styles.col}>
+                  <i className={`${styles.dot} ${styles.violet}`} />Data Structures<small>1</small>
+                </span>
+                <span className={styles.col}>
+                  <i className={`${styles.dot} ${styles.amber}`} />★ Favourites<small>4</small>
+                </span>
+              </div>
             </div>
           </article>
         </div>

@@ -9,11 +9,12 @@ export const site = {
   appStoreUrl: "https://apps.apple.com/ng/app/penpus-all-campus-hub/id6789201059",
   playStoreUrl: "https://play.google.com/store/apps/details?id=com.allcampusapp.allcampus",
   webAppUrl: "https://app.penpus.com",
-  email: "hello@penpus.com",
+  email: "support@penpus.com",
   supportEmail: "support@penpus.com",
   social: {
-    x: "https://x.com/penpus",
-    instagram: "https://instagram.com/penpus",
-    tiktok: "https://tiktok.com/@penpus",
+    x: "https://x.com/penpusglobal",
+    instagram: "https://www.instagram.com/penpusglobal",
+    tiktok: "https://www.tiktok.com/@penpusglobal?_r=1&_t=ZS-98jxCMRfUxh",
+    linkedin: "https://www.linkedin.com/company/penpus",
   },
 } as const;

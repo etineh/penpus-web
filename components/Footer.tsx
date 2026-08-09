@@ -1,6 +1,14 @@
 import Link from "next/link";
 import { site } from "@/lib/site";
+import { XGlyph, InstagramGlyph, TikTokGlyph, LinkedInGlyph } from "./Icons";
 import styles from "./Footer.module.css";
+
+const socials = [
+  { href: site.social.x, label: "X", Icon: XGlyph },
+  { href: site.social.instagram, label: "Instagram", Icon: InstagramGlyph },
+  { href: site.social.tiktok, label: "TikTok", Icon: TikTokGlyph },
+  { href: site.social.linkedin, label: "LinkedIn", Icon: LinkedInGlyph },
+];
 
 export default function Footer() {
   return (
@@ -13,12 +21,29 @@ export default function Footer() {
         <span className={styles.copy}>
           © {new Date().getFullYear()} {site.name} · penpus.com
         </span>
-        <nav className={styles.links} aria-label="Footer">
-          <Link href="/privacy">Privacy</Link>
-          <Link href="/terms">Terms</Link>
-          <Link href="/support">Support</Link>
-          <Link href="/account-deletion">Delete Account</Link>
-        </nav>
+        <div className={styles.right}>
+          <div className={styles.social}>
+            {socials.map(({ href, label, Icon }) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={label}
+                title={label}
+              >
+                <Icon />
+              </a>
+            ))}
+          </div>
+          <nav className={styles.links} aria-label="Footer">
+            <Link href="/about">About</Link>
+            <Link href="/privacy">Privacy</Link>
+            <Link href="/terms">Terms</Link>
+            <Link href="/support">Support</Link>
+            <Link href="/account-deletion">Delete Account</Link>
+          </nav>
+        </div>
       </div>
     </footer>
   );

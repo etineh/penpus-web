@@ -38,3 +38,20 @@
 .ext { flex: none; font-size: 0.58rem; font-weight: 800; background: var(--margin); color: #fff; border-radius: 6px; padding: 3px 6px; letter-spacing: 0.05em; }
 .doc { background: var(--pen); }
 .approved { margin-left: auto; color: var(--good); font-size: 0.68rem; font-weight: 700; white-space: nowrap; }
+
+/* Library */
+.libWrap { display: flex; flex-wrap: wrap; gap: 14px; }
+.libStore { flex: 1 1 220px; border: 1px solid var(--rule); background: var(--paper); border-radius: 14px; padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; justify-content: center; }
+.libStore b { font-size: 0.9rem; }
+.libUsed { color: var(--ink-soft); font-size: 0.74rem; }
+.bar { height: 8px; border-radius: 999px; background: var(--chip); overflow: hidden; }
+.bar i { display: block; height: 100%; background: var(--pen); border-radius: 999px; }
+.libCols { flex: 2 1 320px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; align-content: center; }
+.col { display: flex; align-items: center; gap: 10px; border: 1px solid var(--rule); background: var(--paper); border-radius: 12px; padding: 9px 12px; font-size: 0.82rem; font-weight: 700; }
+.col small { margin-left: auto; color: var(--ink-soft); font-weight: 700; font-size: 0.74rem; }
+.dot { flex: none; width: 22px; height: 22px; border-radius: 7px; }
+.blue { background: rgba(37, 99, 235, 0.18); }
+.green { background: rgba(46, 158, 91, 0.20); }
+.violet { background: rgba(124, 92, 255, 0.20); }
+.amber { background: rgba(240, 170, 40, 0.24); }
+@media (max-width: 560px) { .libCols { grid-template-columns: 1fr; } }

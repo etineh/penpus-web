@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { site } from "@/lib/site";
 import ThemeToggle from "./ThemeToggle";
+import GetAppButton from "./GetAppButton";
 import styles from "./Nav.module.css";
 
 export default function Nav() {
@@ -15,13 +16,9 @@ export default function Nav() {
           <Link href="/#features">Features</Link>
           <Link href="/#quiz">Quiz</Link>
           <Link href="/#schools">Schools</Link>
-          <a
-            className="btn"
-            href={site.playStoreUrl}
-            style={{ color: "#fff" }}
-          >
+          <GetAppButton className="btn" style={{ color: "#fff" }}>
             Get the app
-          </a>
+          </GetAppButton>
         </nav>
         <ThemeToggle />
       </div>

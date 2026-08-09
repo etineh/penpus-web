@@ -7,7 +7,11 @@
   font-size: 1.05rem; font-weight: 800; color: var(--ink); text-decoration: none;
 }
 .copy { font-variant-numeric: tabular-nums; }
-.links { margin-left: auto; display: flex; gap: 18px; }
+.right { margin-left: auto; display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+.social { display: flex; align-items: center; gap: 14px; }
+.social a { color: var(--ink-soft); display: inline-flex; transition: color 0.15s ease; }
+.social a:hover { color: var(--pen); }
+.links { display: flex; flex-wrap: wrap; gap: 18px; }
 .links a { color: var(--ink-soft); text-decoration: none; font-weight: 600; }
 .links a:hover { color: var(--pen); }
-@media (max-width: 640px) { .links { margin-left: 0; } }
+@media (max-width: 640px) { .right { margin-left: 0; } }
