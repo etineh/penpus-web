@@ -11,12 +11,10 @@ export default function Hero() {
         <div>
           <p className="eyebrow">Built for all campuses</p>
           <h1 className={styles.title}>
-            The <span className={styles.hl}>whole campus</span> in your pocket.
+            <span className={styles.hl}>Your campus</span> in your pocket.
           </h1>
           <p className={styles.lede}>
-            Penpus brings your course mates, class timetable, past questions and the
-            daily quiz into one clean chat app — from your institution community down 
-            to your level group.
+            Everything a student needs is on Penpus: mock exam, course materials, past questions, daily quiz, timetables, a CGPA calculator, a PDF scanner, and a private study library. Penpus lets students play live mock exams against their classmates, generated from their own course materials.
           </p>
           <StoreBadges withBrowser />
           <span className={styles.scribble}>GST232 — 9am, LT1. Don’t sleep in! ✍︎</span>

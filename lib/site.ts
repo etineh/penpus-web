@@ -3,7 +3,7 @@ export const site = {
   name: "Penpus",
   tagline: "Your campus, in your pocket.",
   description:
-    "Everything a student needs is on Penpus: mock exam, course materials, past questions, timetables, a CGPA calculator, a PDF scanner, and a private study library. Penpus lets students play live mock exams against their classmates, generated from their own course materials.",
+    "Everything a student needs is on Penpus: mock exam, course materials, past questions, daily quiz, timetables, a CGPA calculator, a PDF scanner, and a private study library. Penpus lets students play live mock exams against their classmates, generated from their own course materials.",
   url: "https://penpus.com",
   // Update these once the store listings are live.
   appStoreUrl: "https://apps.apple.com/ng/app/penpus-all-campus-hub/id6789201059",
