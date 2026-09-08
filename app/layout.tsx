@@ -21,13 +21,18 @@ export const metadata: Metadata = {
     siteName: site.name,
     title: `${site.name} — ${site.tagline}`,
     description: site.description,
-    images: [{ url: "/logo.png", width: 1060, height: 1060, alt: `${site.name} — ${site.tagline}` }],
+    // A 1200x630 CARD, not the bare app icon: chat apps crop a square badly and
+    // show no name, so a shared link read as an unlabelled blue block. This one
+    // carries the logo AND the wordmark, which is what makes a WhatsApp link
+    // recognisable at a glance. Rendered from public/logo.png, so the mark on
+    // it can never drift from the real one.
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: `${site.name} — ${site.tagline}` }],
   },
   twitter: {
     card: "summary_large_image",
     title: `${site.name} — ${site.tagline}`,
     description: site.description,
-    images: ["/logo.png"],
+    images: ["/og.png"],
   },
   icons: {
     icon: [

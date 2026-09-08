@@ -1,9 +1,9 @@
 // Single source of truth for brand + links used across the site and metadata.
 export const site = {
   name: "Penpus",
-  tagline: "The whole campus in your pocket.",
+  tagline: "Your campus, in your pocket.",
   description:
-    "Penpus brings your course mates, class timetable, past questions and the daily quiz into one clean chat app — from your institution community down to your level group.",
+    "Everything a student needs is on Penpus: mock exam, course materials, past questions, timetables, a CGPA calculator, a PDF scanner, and a private study library. Penpus lets students play live mock exams against their classmates, generated from their own course materials.",
   url: "https://penpus.com",
   // Update these once the store listings are live.
   appStoreUrl: "https://apps.apple.com/ng/app/penpus-all-campus-hub/id6789201059",
