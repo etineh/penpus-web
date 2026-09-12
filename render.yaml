@@ -14,3 +14,11 @@ services:
       - type: rewrite
         source: /join/*
         destination: /join.html
+      # Personal links: /u/<handle>, same rewrite reason as /join.
+      - type: rewrite
+        source: /u/*
+        destination: /u.html
+      # Shared match links: /challenge/<matchId>, same again.
+      - type: rewrite
+        source: /challenge/*
+        destination: /challenge.html
