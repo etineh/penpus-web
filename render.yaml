@@ -22,3 +22,7 @@ services:
       - type: rewrite
         source: /challenge/*
         destination: /challenge.html
+      # League invites: /league/<joinCode>, same again.
+      - type: rewrite
+        source: /league/*
+        destination: /league.html
