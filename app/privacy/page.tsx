@@ -17,7 +17,7 @@ export default function Privacy() {
         <Link href="/" className="backlink">← Back to home</Link>
         <h1>Privacy Policy</h1>
         <p className="updated">
-          {site.name} — your campus, in your pocket · Effective 14 September 2026
+          {site.name} — your campus, in your pocket · Effective 3 November 2026
         </p>
 
         <p className="lead">
@@ -30,6 +30,7 @@ export default function Privacy() {
         <ul>
           <li><b>Account information</b> — when you sign in with Google, we receive your name, email address and profile photo.</li>
           <li><b>Academic information</b> — the school, faculty, department and level you choose or verify, so we can place you in the right campus communities.</li>
+          <li><b>Verification documents</b> — the student ID card, admission letter or similar document you upload to verify your academic rank. It is checked by an AI service and reviewed by our team, and used only for verification.</li>
           <li><b>Content you create</b> — messages, voice notes, photos, posts, quiz attempts and course materials you share inside the app.</li>
           <li><b>Device information</b> — a push-notification token so we can deliver message alerts and class reminders, and basic diagnostics to keep the app reliable.</li>
           <li><b>Camera, microphone and photo library</b> — used only when you actively take a photo, record a voice note, or attach an image. We never access them in the background.</li>
@@ -42,7 +43,7 @@ export default function Privacy() {
         <ul>
           <li>To create and secure your account and verify your campus membership.</li>
           <li>To deliver messages, feeds, timetables, reminders and quizzes to you and your communities.</li>
-          <li>To generate practice-quiz questions from course materials you choose (processed by an AI service solely for that purpose).</li>
+          <li>To generate quizzes from course materials you choose, read handwritten exam answers you photograph, and check the documents you submit for rank verification (processed by an AI service solely for those purposes).</li>
           <li>To send push notifications you can turn off anytime in Settings.</li>
           <li>To prevent abuse and keep communities safe.</li>
           <li>To understand which features are used, so we know what to improve.</li>
@@ -79,7 +80,7 @@ export default function Privacy() {
           <li><b>Google Firebase</b> — authentication and push notifications.</li>
           <li><b>Supabase</b> — application database.</li>
           <li><b>Cloudflare</b> — file storage for photos, voice notes and course materials.</li>
-          <li><b>Anthropic</b> — AI processing of course materials you select for quiz generation.</li>
+          <li><b>Anthropic and OpenAI</b> — AI processing of course materials, exam answers and verification documents you submit. They process this data only to return a result to us, and do not use it to train their models.</li>
         </ul>
 
         <h2>6. Data retention &amp; deletion</h2>

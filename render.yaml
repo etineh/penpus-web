@@ -26,3 +26,20 @@ services:
       - type: rewrite
         source: /league/*
         destination: /league.html
+      # Spectate: /watch/<matchId>. Unlike the four above this page is not a
+      # hand-off shell — it renders the match itself, so someone with no app
+      # can watch. Served by the exported Next route, hence /watch/index.html
+      # rather than a public/*.html file.
+      - type: rewrite
+        source: /watch/*
+        destination: /watch/index.html
+    # Read by app/watch/WatchLive.tsx and inlined at BUILD time. Set the values
+    # in the Render dashboard — they are not committed, matching how the mobile
+    # app keeps them in a gitignored .env. The anon key is the browser's public
+    # key; what a watcher may see is enforced by get_spectate_feed in Postgres,
+    # never by this client.
+    envVars:
+      - key: NEXT_PUBLIC_SUPABASE_URL
+        sync: false
+      - key: NEXT_PUBLIC_SUPABASE_ANON_KEY
+        sync: false
