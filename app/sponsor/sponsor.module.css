@@ -1,0 +1,195 @@
+.benefits {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+  margin: 16px 0 8px;
+}
+
+.benefit {
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: 14px;
+  padding: 16px 18px;
+}
+
+.benefit h3 {
+  margin: 0 0 6px;
+  font-size: 1rem;
+}
+
+.benefit p {
+  margin: 0;
+  font-size: .92rem;
+  color: var(--ink-soft);
+}
+
+.priceHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.toggle {
+  display: inline-flex;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.toggle button {
+  border: 0;
+  background: transparent;
+  color: var(--ink-soft);
+  font: inherit;
+  font-size: .85rem;
+  font-weight: 700;
+  padding: 6px 14px;
+  cursor: pointer;
+}
+
+.toggle button.on {
+  background: var(--pen);
+  color: #fff;
+}
+
+.packages {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+  margin: 16px 0 6px;
+}
+
+.package {
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+}
+
+.package h3 {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--ink-soft);
+}
+
+.price {
+  margin: 6px 0 0;
+  font-size: 1.9rem;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.alt {
+  margin: 0;
+  font-size: .9rem;
+  color: var(--ink-soft);
+}
+
+.detail {
+  margin: 12px 0 0;
+  font-size: .92rem;
+  color: var(--ink-soft);
+}
+
+.note {
+  font-size: .85rem;
+  color: var(--ink-soft);
+}
+
+.steps {
+  padding-left: 1.3em;
+  color: var(--ink-soft);
+}
+
+.steps li {
+  margin: 8px 0;
+}
+
+.steps li::marker {
+  color: var(--pen);
+  font-weight: 700;
+}
+
+.form {
+  display: grid;
+  gap: 14px;
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: 16px;
+  padding: 22px;
+  margin: 16px 0;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.form label {
+  display: grid;
+  gap: 6px;
+  font-size: .9rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.form input,
+.form select,
+.form textarea {
+  font: inherit;
+  font-weight: 400;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  padding: 10px 12px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form input:focus,
+.form select:focus,
+.form textarea:focus {
+  outline: 3px solid var(--ring);
+  border-color: var(--pen);
+}
+
+.form button[disabled] {
+  opacity: .6;
+  cursor: wait;
+}
+
+/* Off-screen, not display:none — some bots skip hidden inputs. */
+.trap {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.error {
+  margin: 0;
+  color: var(--bad);
+  font-weight: 600;
+}
+
+.done {
+  background: color-mix(in srgb, var(--good) 12%, transparent);
+  border: 1px solid var(--good);
+  border-radius: 16px;
+  padding: 18px 22px;
+  margin: 16px 0;
+}
+
+.done h3 {
+  margin: 0 0 4px;
+}
+
+.done p {
+  margin: 0;
+}

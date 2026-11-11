@@ -41,6 +41,7 @@ export default function Footer() {
             <Link href="/privacy">Privacy</Link>
             <Link href="/terms">Terms</Link>
             <Link href="/support">Support</Link>
+            <Link href="/sponsor">Sponsor</Link>
             <Link href="/account-deletion">Delete Account</Link>
           </nav>
         </div>
