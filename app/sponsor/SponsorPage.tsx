@@ -230,8 +230,8 @@ export default function SponsorPage() {
             <div key={r.id} className={styles.package}>
               <h3>{r.title}</h3>
               <p className={styles.price}>
-                {perNight(r)}
-                <span className={styles.per}> a night</span>
+                <span>{perNight(r)}</span>
+                <span className={styles.per}>a night</span>
               </p>
               {usd != null && (
                 <p className={styles.alt}>

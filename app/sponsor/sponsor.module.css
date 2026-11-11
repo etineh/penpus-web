@@ -75,9 +75,15 @@
   color: var(--ink-soft);
 }
 
+/* Tight line height: .prose p's tall one floated "a night" far below. */
 .price {
   margin: 6px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 6px;
   font-size: 1.9rem;
+  line-height: 1.15;
   font-weight: 800;
   color: var(--ink);
 }
@@ -163,9 +169,11 @@
   justify-content: center;
 }
 
+/* "a night" stays one piece: beside the price, or whole on the line below. */
 .per {
   font-size: .95rem;
   font-weight: 600;
+  white-space: nowrap;
   color: var(--ink-soft);
 }
 
