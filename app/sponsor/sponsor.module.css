@@ -158,6 +158,23 @@
   border-color: var(--pen);
 }
 
+/* .btn is inline-flex: stretched to the form's width, its text sat left. */
+.submit {
+  justify-content: center;
+}
+
+.per {
+  font-size: .95rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+.quote {
+  margin: 0;
+  font-weight: 700;
+  color: var(--pen);
+}
+
 .form button[disabled] {
   opacity: .6;
   cursor: wait;

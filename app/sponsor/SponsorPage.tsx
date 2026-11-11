@@ -10,27 +10,38 @@ import styles from "./sponsor.module.css";
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
 const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "";
 
-type Pkg = {
+// Priced per night: a run pays its tier's rate (the highest min_nights it
+// reaches) for every night.
+type Rate = {
   id: string;
   title: string;
-  nights: number;
+  min_nights: number;
   prize_per_night_ngn: number;
-  prize_ngn: number;
-  fee_ngn: number;
-  total_ngn: number;
-  total_usd: number | null;
+  fee_per_night_ngn: number;
+  per_night_ngn: number;
 };
-type Packages = { ngn_per_usd: number | null; packages: Pkg[] };
+type Rates = { ngn_per_usd: number | null; rates: Rate[] };
 type Currency = "NGN" | "USD";
 
-// Shown until the live prices load, or if they can't: the database's values.
-const FALLBACK: Packages = {
+// Shown until the live rates load, or if they can't: the database's values.
+const FALLBACK: Rates = {
   ngn_per_usd: null,
-  packages: [
-    { id: "night", title: "One night", nights: 1, prize_per_night_ngn: 10000, prize_ngn: 10000, fee_ngn: 5000, total_ngn: 15000, total_usd: null },
-    { id: "week", title: "One week", nights: 7, prize_per_night_ngn: 7000, prize_ngn: 49000, fee_ngn: 26000, total_ngn: 75000, total_usd: null },
+  rates: [
+    { id: "night", title: "Per night", min_nights: 1, prize_per_night_ngn: 10000, fee_per_night_ngn: 5000, per_night_ngn: 15000 },
+    { id: "week", title: "7 nights or more", min_nights: 7, prize_per_night_ngn: 7000, fee_per_night_ngn: 3000, per_night_ngn: 10000 },
   ],
 };
+
+const MAX_NIGHTS = 90;
+
+function rateFor(rates: Rate[], nights: number): Rate | undefined {
+  return [...rates].sort((a, b) => b.min_nights - a.min_nights).find((r) => r.min_nights <= nights);
+}
+
+/** Dollars a night, rounded UP: a little room if the naira moves. */
+function usdPerNight(r: Rate, rate: number | null): number | null {
+  return rate ? Math.ceil(r.per_night_ngn / rate) : null;
+}
 
 const BENEFITS = [
   { title: "On every Home screen", text: "Your name and logo on the Quiz Night card students see all day." },
@@ -41,8 +52,9 @@ const BENEFITS = [
 ];
 
 const STEPS = [
-  "Pick a package and send the form.",
-  "We confirm your nights within 48 hours.",
+  "Pick your nights and send the form.",
+  "We reply within 48 hours to agree your dates, with payment details.",
+  "Your nights are booked once payment arrives, before the first one.",
   "Your nights run. Penpus pays the winners.",
   "You get the numbers.",
 ];
@@ -87,7 +99,7 @@ function guessCurrency(): Currency {
 }
 
 export default function SponsorPage() {
-  const [data, setData] = useState<Packages>(FALLBACK);
+  const [data, setData] = useState<Rates>(FALLBACK);
   const [currency, setCurrency] = useState<Currency>("NGN");
   const [today, setToday] = useState("");
 
@@ -95,7 +107,7 @@ export default function SponsorPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [pkg, setPkg] = useState("night");
+  const [nightsText, setNightsText] = useState("1");
   const [start, setStart] = useState("");
   const [message, setMessage] = useState("");
   const [trap, setTrap] = useState(""); // only a bot fills this
@@ -109,14 +121,33 @@ export default function SponsorPage() {
     const d = new Date();
     setToday(`${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`);
     rpc("get_sponsor_packages", {}).then((r) => {
-      const live = r.data as Packages | undefined;
-      if (r.ok && live && Array.isArray(live.packages) && live.packages.length > 0) setData(live);
+      const live = r.data as Rates | undefined;
+      if (r.ok && live && Array.isArray(live.rates) && live.rates.length > 0) setData(live);
     });
   }, []);
 
   // Dollars only once the rate is known.
-  const hasUsd = data.packages.every((p) => p.total_usd != null);
+  const hasUsd = !!data.ngn_per_usd;
   const showUsd = hasUsd && currency === "USD";
+
+  /** "₦15,000" or "$12" a night, by the chosen currency. */
+  const perNight = (r: Rate) => {
+    const usd = usdPerNight(r, data.ngn_per_usd);
+    return showUsd && usd != null ? dollars(usd) : naira(r.per_night_ngn);
+  };
+
+  // The live quote under the nights box.
+  const nights = Number.parseInt(nightsText, 10);
+  const nightsOk = Number.isInteger(nights) && nights >= 1 && nights <= MAX_NIGHTS;
+  const quoteRate = nightsOk ? rateFor(data.rates, nights) : undefined;
+  const quote = (() => {
+    if (!nightsOk || !quoteRate) return null;
+    const ngn = naira(nights * quoteRate.per_night_ngn);
+    const usd = usdPerNight(quoteRate, data.ngn_per_usd);
+    const usdTotal = usd != null ? dollars(nights * usd) : null;
+    const total = showUsd && usdTotal ? `${usdTotal} (${ngn})` : usdTotal ? `${ngn} (about ${usdTotal})` : ngn;
+    return `${nights} ${nights === 1 ? "night" : "nights"} · ${total}`;
+  })();
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -130,13 +161,17 @@ export default function SponsorPage() {
       setError("Please add an email or a phone number.");
       return;
     }
+    if (!nightsOk) {
+      setError(`Pick between 1 and ${MAX_NIGHTS} nights. For longer, tell us in the message.`);
+      return;
+    }
     setSending(true);
     const r = await rpc("submit_sponsor_inquiry", {
       p_brand: brand,
       p_contact: name,
       p_email: email.trim() || null,
       p_phone: phone.trim() || null,
-      p_package: pkg || null,
+      p_nights: nights,
       p_start: start || null,
       p_message: message.trim() || null,
       p_currency: showUsd ? "USD" : "NGN",
@@ -167,7 +202,7 @@ export default function SponsorPage() {
       </div>
 
       <div className={styles.priceHead}>
-        <h2>Packages</h2>
+        <h2>Prices</h2>
         {hasUsd && (
           <div className={styles.toggle} role="group" aria-label="Currency">
             <button
@@ -188,24 +223,29 @@ export default function SponsorPage() {
         )}
       </div>
       <div className={styles.packages}>
-        {data.packages.map((p) => (
-          <div key={p.id} className={styles.package}>
-            <h3>{p.title}</h3>
-            <p className={styles.price}>
-              {showUsd && p.total_usd != null ? dollars(p.total_usd) : naira(p.total_ngn)}
-            </p>
-            {hasUsd && (
-              <p className={styles.alt}>
-                {showUsd ? naira(p.total_ngn) : `about ${dollars(p.total_usd ?? 0)}`}
+        {data.rates.map((r, i) => {
+          const next = data.rates[i + 1];
+          const usd = usdPerNight(r, data.ngn_per_usd);
+          return (
+            <div key={r.id} className={styles.package}>
+              <h3>{r.title}</h3>
+              <p className={styles.price}>
+                {perNight(r)}
+                <span className={styles.per}> a night</span>
               </p>
-            )}
-            <p className={styles.detail}>
-              {p.nights === 1
-                ? `${naira(p.prize_ngn)} prize pool for the students, and your brand on the night.`
-                : `${naira(p.prize_per_night_ngn)} prize pool every night for ${p.nights} nights, and your brand on all of them.`}
-            </p>
-          </div>
-        ))}
+              {usd != null && (
+                <p className={styles.alt}>
+                  {showUsd ? naira(r.per_night_ngn) : `about ${dollars(usd)}`}
+                </p>
+              )}
+              <p className={styles.detail}>
+                {`${naira(r.prize_per_night_ngn)} prize pool for the students each night, and your brand on it.`}
+                {next ? ` For ${r.min_nights}–${next.min_nights - 1} nights.` : ""}
+                {r.min_nights === 7 ? ` A week: ${showUsd && usd != null ? dollars(7 * usd) : naira(7 * r.per_night_ngn)}.` : ""}
+              </p>
+            </div>
+          );
+        })}
         <div className={styles.package}>
           <h3>Longer run</h3>
           <p className={styles.price}>Let&rsquo;s talk</p>
@@ -228,7 +268,7 @@ export default function SponsorPage() {
       {sent ? (
         <div className={styles.done} role="status">
           <h3>Thanks, we&rsquo;ve got it.</h3>
-          <p>We&rsquo;ll be in touch within 48 hours to confirm your nights.</p>
+          <p>We&rsquo;ll be in touch within 48 hours to agree your nights and send payment details.</p>
         </div>
       ) : (
         <form className={styles.form} onSubmit={onSubmit} noValidate>
@@ -254,19 +294,22 @@ export default function SponsorPage() {
           </div>
           <div className={styles.row}>
             <label>
-              Package
-              <select value={pkg} onChange={(e) => setPkg(e.target.value)}>
-                {data.packages.map((p) => (
-                  <option key={p.id} value={p.id}>{p.title}</option>
-                ))}
-                <option value="custom">Longer run</option>
-              </select>
+              How many nights?
+              <input
+                type="number"
+                inputMode="numeric"
+                min={1}
+                max={MAX_NIGHTS}
+                value={nightsText}
+                onChange={(e) => setNightsText(e.target.value)}
+              />
             </label>
             <label>
               Start date
               <input type="date" value={start} min={today || undefined} onChange={(e) => setStart(e.target.value)} />
             </label>
           </div>
+          {quote && <p className={styles.quote}>{quote}</p>}
           <label>
             Anything else
             <textarea value={message} onChange={(e) => setMessage(e.target.value)} maxLength={1000} rows={4} />
@@ -279,7 +322,7 @@ export default function SponsorPage() {
             </label>
           </div>
           {error && <p className={styles.error} role="alert">{error}</p>}
-          <button type="submit" className="btn" disabled={sending}>
+          <button type="submit" className={`btn ${styles.submit}`} disabled={sending}>
             {sending ? "Sending…" : "Send request"}
           </button>
           <p className={styles.note}>
