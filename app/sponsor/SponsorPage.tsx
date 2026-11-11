@@ -288,7 +288,7 @@ export default function SponsorPage() {
               <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} maxLength={120} autoComplete="email" />
             </label>
             <label>
-              Phone or WhatsApp
+              Phone number
               <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} maxLength={40} autoComplete="tel" />
             </label>
           </div>
