@@ -53,7 +53,7 @@ const BENEFITS = [
 
 const STEPS = [
   "Pick your nights and send the form.",
-  "We reply within 48 hours to agree your dates, with payment details.",
+  "We reply within an hour to agree your dates, with payment details.",
   "Your nights are booked once payment arrives, before the first one.",
   "Your nights run. Penpus pays the winners.",
   "You get the numbers.",
@@ -268,7 +268,7 @@ export default function SponsorPage() {
       {sent ? (
         <div className={styles.done} role="status">
           <h3>Thanks, we&rsquo;ve got it.</h3>
-          <p>We&rsquo;ll be in touch within 48 hours to agree your nights and send payment details.</p>
+          <p>We&rsquo;ll be in touch within an hour to agree your nights and send payment details.</p>
         </div>
       ) : (
         <form className={styles.form} onSubmit={onSubmit} noValidate>
