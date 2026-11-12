@@ -75,8 +75,8 @@ async function rpc<T>(fn: string, body: Record<string, unknown>): Promise<T | nu
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        // apikey only: a publishable key isn't a JWT, so it's no Bearer token.
         apikey: SUPABASE_ANON_KEY,
-        Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
       },
       body: JSON.stringify(body),
     });
